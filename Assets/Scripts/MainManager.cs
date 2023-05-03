@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
 
 public class MainManager : MonoBehaviour
 {
+    public static MainManager Instance;
     public Brick BrickPrefab;
     public int LineCount = 6;
     public Rigidbody Ball;
@@ -14,7 +16,7 @@ public class MainManager : MonoBehaviour
     public GameObject GameOverText;
     
     private bool m_Started = false;
-    private int m_Points;
+    public int m_Points;
     
     private bool m_GameOver = false;
 
@@ -67,10 +69,21 @@ public class MainManager : MonoBehaviour
         m_Points += point;
         ScoreText.text = $"Score : {m_Points}";
     }
-
+    void CheckBestPlayer()
+    {
+        if (m_Points > DataHolder.Instance.hiScore)
+        {
+            DataHolder.Instance.hiScore = m_Points;
+            DataHolder.Instance.highScoreName = DataHolder.Instance.playerName;
+        }
+        DataHolder.Instance.SaveScore(DataHolder.Instance.hiScore, DataHolder.Instance.highScoreName);
+    }
     public void GameOver()
     {
         m_GameOver = true;
+        CheckBestPlayer();
         GameOverText.SetActive(true);
     }
+    
+
 }
