@@ -74,9 +74,9 @@ public class MainManager : MonoBehaviour
         if (m_Points > DataHolder.Instance.hiScore)
         {
             DataHolder.Instance.hiScore = m_Points;
-            DataHolder.Instance.highScoreName = DataHolder.Instance.playerName;
+            DataHolder.Instance.highScoreName = DataHolder.Instance.playerName; // Set the highScoreName to the current player's name
         }
-        DataHolder.Instance.SaveScore(DataHolder.Instance.hiScore, DataHolder.Instance.highScoreName);
+        DataHolder.Instance.SaveScore(DataHolder.Instance.hiScore, DataHolder.Instance.highScoreName); // Save both, high score and name
     }
     public void GameOver()
     {
